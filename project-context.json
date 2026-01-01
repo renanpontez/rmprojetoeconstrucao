@@ -1,0 +1,605 @@
+{
+  "meta": {
+    "project_name": "Website Builder Multi-Agent System",
+    "version": "0.2.3",
+    "single_source_of_truth": true
+  },
+  "status": {
+    "current_phase": "build",
+    "gate": "OPEN",
+    "ready_to_advance": true,
+    "blocking_reasons": []
+  },
+  "phases": {
+    "strategy": {
+      "...": "UNCHANGED_FROM_INPUT"
+    },
+    "experience": {
+      "...": "UNCHANGED_FROM_INPUT"
+    },
+    "build": {
+      "build_version": "v1.1",
+      "objective": "Implement the landing page + CMS + deployment to production standards (Next.js + Sanity + Vercel), aligned with phases.strategy + phases.experience, using Tailwind + shadcn/ui to avoid reinventing primitives.",
+      "gate": "OPEN",
+      "stack": {
+        "web": {
+          "framework": "Next.js (App Router)",
+          "language": "TypeScript",
+          "styling": "Tailwind CSS + shadcn/ui",
+          "ui_primitives": "shadcn/ui (Radix) components extended via local wrappers",
+          "forms": "react-hook-form + zod",
+          "icons": "lucide-react",
+          "images": "next/image (placeholders via placeholder.co / Pexels / Unsplash)",
+          "linting": "eslint + prettier"
+        },
+        "cms": {
+          "provider": "Sanity v3",
+          "studio_location": "apps/studio",
+          "datasets": ["development", "production"]
+        },
+        "deploy": {
+          "hosting": "Vercel",
+          "cms_hosting": "Sanity hosted Studio (recommended)",
+          "env_management": "Vercel environment variables"
+        },
+        "analytics": {
+          "default": "GTM + GA4",
+          "optional": ["Vercel Analytics", "Vercel Speed Insights"]
+        }
+      },
+      "project_facts": {
+        "service_area": {
+          "city": "Fortaleza",
+          "state": "CE",
+          "country": "BR"
+        },
+        "business": {
+          "brand_name": "RM Projetos & Construção",
+          "description": "Empresa cearense gerida pelo engenheiro civil Roberto Martins.",
+          "cnpj": "1234567890001-12",
+          "email": "dr.robertofm@gmail.com",
+          "whatsapp": "+55 85 99988-0988",
+          "crea": {
+            "uf": "CE",
+            "number": "123456",
+            "display": "CREA-CE: 123456"
+          },
+          "primary_cta": {
+            "channel": "whatsapp_only",
+            "label_default": "Chamar no WhatsApp",
+            "href_template": "https://wa.me/5585999880988"
+          }
+        },
+        "assets": {
+          "images_available_now": false,
+          "placeholder_sources_allowed": ["placeholder.co", "Pexels", "Unsplash"]
+        }
+      },
+      "repo_structure": {
+        "type": "monorepo",
+        "tooling": "npm workspaces",
+        "tree": [
+          "apps/web",
+          "apps/studio",
+          "README.md",
+          ".editorconfig",
+          ".gitignore"
+        ],
+        "apps_web_tree": [
+          "src/app/(site)/page.tsx",
+          "src/app/(site)/layout.tsx",
+          "src/app/politica-de-privacidade/page.tsx",
+          "src/app/sitemap.ts",
+          "src/app/robots.ts",
+          "src/components/sections/*",
+          "src/components/shared/*",
+          "src/components/ui/* (shadcn generated)",
+          "src/lib/sanity/client.ts",
+          "src/lib/sanity/queries.ts",
+          "src/lib/sanity/image.ts",
+          "src/lib/analytics/track.ts",
+          "src/lib/analytics/events.ts",
+          "src/lib/seo/jsonld.ts",
+          "src/lib/seo/metadata.ts",
+          "src/styles/globals.css",
+          "public/og.png",
+          "public/favicon.ico"
+        ],
+        "apps_studio_tree": [
+          "sanity.config.ts",
+          "schemaTypes/index.ts",
+          "schemaTypes/documents/siteSettings.ts",
+          "schemaTypes/documents/landingPage.ts",
+          "schemaTypes/documents/service.ts",
+          "schemaTypes/documents/portfolioItem.ts",
+          "schemaTypes/objects/cta.ts",
+          "schemaTypes/objects/ctaBlock.ts"
+        ]
+      },
+      "routing": {
+        "routes": [
+          {
+            "path": "/",
+            "type": "single-page landing",
+            "sections": ["#sobre", "#servicos", "#projetos", "#contato"]
+          },
+          {
+            "path": "/politica-de-privacidade",
+            "type": "static/legal",
+            "required_if": "form_enabled (not used for whatsapp-only)"
+          }
+        ],
+        "decision": "Keep /politica-de-privacidade as a simple placeholder page for now (no form data collection), can be expanded later."
+      },
+      "tailwind_and_shadcn": {
+        "decision": "Use Tailwind config overrides (theme.extend) instead of complex CSS variables system; keep globals.css minimal.",
+        "tailwind_config_overrides": {
+          "colors": "Map experience tokens to Tailwind semantic colors (primary/secondary/accent/surface/border/text).",
+          "radius": "Match sm/md/lg",
+          "shadows": "Add shadow-sm/shadow-md equivalents to match tokens",
+          "typography": "Use Inter via next/font and Tailwind fontFamily",
+          "spacing": "Rely on Tailwind scale; use custom only if necessary"
+        },
+        "shadcn_usage": {
+          "base_components": [
+            "button",
+            "card",
+            "badge",
+            "input",
+            "textarea",
+            "dialog",
+            "sheet",
+            "separator"
+          ],
+          "wrappers": [
+            "Container",
+            "SectionHeading",
+            "CTAButton (bind analytics + WhatsApp href)",
+            "NavLink (anchor + focus-visible)"
+          ]
+        }
+      },
+      "components": {
+        "layout": ["SkipToContent", "HeaderSticky", "Footer"],
+        "sections": [
+          "HeroSection",
+          "AboutSection",
+          "ServicesGridSection",
+          "PrimaryCTASection",
+          "PortfolioGallerySection",
+          "ContactSection"
+        ],
+        "ui": [
+          "Container",
+          "SectionHeading",
+          "CTAButton",
+          "CardGrid",
+          "GalleryGrid (no real images yet -> placeholders)",
+          "WhatsAppLink"
+        ],
+        "placeholder_images": {
+          "hero": "Use a construction-themed placeholder from Unsplash/Pexels, sized ~1600w",
+          "portfolio": "Use 6-9 placeholders from Unsplash/Pexels or placeholder.co with consistent aspect ratio 4:3"
+        }
+      },
+      "page_organization": {
+        "main_page_file": "apps/web/app/page.tsx",
+        "section_order": [
+          "SkipToContent (a11y)",
+          "Header (fixed navigation)",
+          "main#main-content containing:",
+          "  1. HeroSection",
+          "  2. AboutSection",
+          "  3. ServicesSection",
+          "  4. CTASection",
+          "  5. PortfolioSection",
+          "  6. ContactSection",
+          "Footer"
+        ],
+        "section_components": {
+          "hero": {
+            "file": "components/sections/hero-section.tsx",
+            "id": "none (top of page)",
+            "purpose": "Full-screen header with CTA",
+            "features": ["min-h-screen", "background image with overlay", "trust indicators", "primary CTA"],
+            "components_used": ["Container", "CTAButton", "Next Image"],
+            "analytics": ["cta_click tracking"]
+          },
+          "about": {
+            "file": "components/sections/about-section.tsx",
+            "id": "#sobre",
+            "purpose": "Company story and statistics",
+            "layout": "Two parts: (1) Icons + ScrollHighlightText + CTA, (2) Stats + Engineer image",
+            "features": [
+              "Part 1: Renewable energy icons (Solar/Wind SVG), scroll-triggered text highlighting, 'Go Green with Us' CTA",
+              "Part 2: Three stats (20M, 12K, 98%) on left, engineer team image on right",
+              "Responsive grid (lg:grid-cols-2)",
+              "Custom ScrollHighlightText component for progressive word reveal"
+            ],
+            "components_used": ["Container", "ScrollHighlightText", "Next Image"],
+            "custom_components": ["RenewableEnergyIcon (inline)", "ScrollHighlightText"],
+            "spacing": "mb-32 between parts"
+          },
+          "services": {
+            "file": "components/sections/services-section.tsx",
+            "id": "#servicos",
+            "purpose": "Display service offerings",
+            "layout": "Text column + 2x2 service card grid",
+            "services": ["Residencial", "Comercial", "Industrial", "Reformas"],
+            "card_features": ["Background image", "Icon overlay", "Gradient overlay", "Hover scale (105%)"],
+            "components_used": ["Container", "Button", "Next Image", "lucide-react icons"],
+            "icons": ["Building2", "Home", "HardHat", "Wrench", "ArrowRight"]
+          },
+          "cta": {
+            "file": "components/sections/cta-section.tsx",
+            "id": "none (mid-page conversion)",
+            "purpose": "Mid-page call-to-action block",
+            "features": ["Full-width primary background", "Centered text", "Decorative blob gradient", "py-20 sm:py-32"],
+            "components_used": ["Container", "CTAButton"],
+            "content": {
+              "headline": "Pronto para iniciar seu projeto?",
+              "cta": "Falar com Engenheiro"
+            }
+          },
+          "portfolio": {
+            "file": "components/sections/portfolio-section.tsx",
+            "id": "#projetos",
+            "purpose": "Project showcase with modal",
+            "client_side": true,
+            "layout": "Grid: 1 col mobile, 2 cols tablet, 3 cols desktop",
+            "items_count": 6,
+            "item_structure": ["title", "type", "location", "year", "image", "highlights[]"],
+            "features": ["Click opens Dialog modal", "Image hover scale", "Analytics tracking", "Muted background"],
+            "components_used": ["Container", "SectionHeading", "Dialog", "Next Image"],
+            "analytics": ["portfolio_open event"],
+            "project_types": ["Residencial", "Comercial", "Industrial", "Reforma", "Condomínio", "Regularização"]
+          },
+          "contact": {
+            "file": "components/sections/contact-section.tsx",
+            "id": "#contato",
+            "purpose": "Contact methods and WhatsApp CTA",
+            "layout": "Two columns: Contact methods (left) + WhatsApp card (right)",
+            "contact_methods": ["Phone/WhatsApp with link", "Email with link", "Location (display only)"],
+            "features": ["Business hours display", "Gradient WhatsApp card", "Response time disclaimer"],
+            "components_used": ["Container", "SectionHeading", "Card", "CardContent", "CTAButton"],
+            "icons": ["Phone", "Mail", "MapPin", "MessageCircle"]
+          }
+        },
+        "shared_components": {
+          "header": {
+            "file": "components/shared/header.tsx",
+            "client_side": true,
+            "features": [
+              "Fixed positioning (z-50)",
+              "Scroll-triggered style changes (transparent → semi-transparent)",
+              "Desktop nav: Sobre, Serviços, Projetos, Contato",
+              "Mobile hamburger menu with slide-out panel",
+              "CTA button in both desktop and mobile",
+              "Smooth scroll to anchors",
+              "Color switching based on scroll (white → dark)"
+            ],
+            "components_used": ["Container", "CTAButton", "Button"],
+            "icons": ["Menu", "X"]
+          },
+          "footer": {
+            "file": "components/shared/footer.tsx",
+            "layout": "Three columns (mobile friendly)",
+            "sections": ["Company info", "Contact methods", "Legal info"],
+            "features": ["Dynamic year in copyright", "Privacy policy link", "CREA/CNPJ display"],
+            "components_used": ["Container", "Separator", "Link"],
+            "icons": ["Phone", "Mail", "MapPin"]
+          },
+          "skip_to_content": {
+            "file": "components/shared/skip-to-content.tsx",
+            "purpose": "Accessibility (keyboard navigation)",
+            "features": ["sr-only by default", "Visible on focus", "Links to #main-content"],
+            "a11y": "WCAG compliance"
+          }
+        },
+        "ui_components": {
+          "container": {
+            "file": "components/ui/container.tsx",
+            "purpose": "Width constraint and padding wrapper",
+            "classes": "max-w-6xl px-4 sm:px-6 lg:px-8 mx-auto"
+          },
+          "button": {
+            "file": "components/ui/button.tsx",
+            "variants": ["default", "destructive", "outline", "secondary", "ghost", "link"],
+            "sizes": ["default", "sm", "lg", "icon"],
+            "library": "CVA (class-variance-authority)"
+          },
+          "cta_button": {
+            "file": "components/ui/cta-button.tsx",
+            "client_side": true,
+            "purpose": "WhatsApp CTA with analytics",
+            "default_href": "https://wa.me/5585999880988",
+            "tracking": {
+              "event": "cta_click",
+              "params": ["cta_type: whatsapp", "cta_label", "section", "href"]
+            },
+            "props": ["label", "trackingData", "size", "variant", "icon"],
+            "default_icon": "MessageCircle (lucide)"
+          },
+          "card": {
+            "file": "components/ui/card.tsx",
+            "exports": ["Card", "CardHeader", "CardTitle", "CardDescription", "CardContent", "CardFooter"],
+            "features": ["Rounded borders", "Shadow", "Composable"]
+          },
+          "dialog": {
+            "file": "components/ui/dialog.tsx",
+            "library": "Radix UI",
+            "exports": ["Dialog", "DialogTrigger", "DialogPortal", "DialogClose", "DialogOverlay", "DialogContent", "DialogHeader", "DialogFooter", "DialogTitle", "DialogDescription"],
+            "features": ["Animations", "Modal positioning (z-50)", "Close button with X icon"]
+          },
+          "section_heading": {
+            "file": "components/ui/section-heading.tsx",
+            "props": ["title (required)", "subtitle (optional)", "align (left|center)", "className"],
+            "styling": "h2 bold, responsive text sizes (text-3xl sm:text-4xl), mb-12"
+          },
+          "scroll_highlight_text": {
+            "file": "components/ui/scroll-highlight-text.tsx",
+            "client_side": true,
+            "purpose": "Scroll-triggered word-by-word text reveal",
+            "features": [
+              "Splits text into word spans",
+              "Calculates scroll progress",
+              "Progressively highlights words",
+              "Smooth 500ms color transition",
+              "Handles resize events"
+            ],
+            "styling": "Highlighted: text-foreground, Dimmed: text-muted-foreground/40"
+          },
+          "separator": {
+            "file": "components/ui/separator.tsx",
+            "library": "Radix UI",
+            "features": ["Horizontal/vertical orientation", "Decorative by default"]
+          }
+        },
+        "navigation_flow": {
+          "anchor_targets": {
+            "#sobre": "AboutSection",
+            "#servicos": "ServicesSection",
+            "#projetos": "PortfolioSection",
+            "#contato": "ContactSection"
+          },
+          "header_links": ["Sobre → #sobre", "Serviços → #servicos", "Projetos → #projetos", "Contato → #contato"],
+          "smooth_scroll": true
+        },
+        "design_patterns": {
+          "responsive_grids": {
+            "services": "grid-cols-2 lg:grid-cols-3",
+            "portfolio": "sm:grid-cols-2 lg:grid-cols-3",
+            "contact": "lg:grid-cols-2",
+            "about_part1": "lg:grid-cols-[auto_1fr]",
+            "about_part2": "lg:grid-cols-2"
+          },
+          "image_overlays": {
+            "services_cards": "bg-gradient-to-t from-black/80 via-black/40 to-transparent",
+            "portfolio_cards": "bg-gradient-to-t from-black/80 via-black/40 to-transparent",
+            "hero": "bg-black/50"
+          },
+          "hover_effects": {
+            "scale": "group-hover:scale-105",
+            "transition": "duration-300",
+            "shadow": "hover:shadow-xl"
+          },
+          "cta_pattern": {
+            "primary_action": "WhatsApp link (https://wa.me/5585999880988)",
+            "placements": ["Hero", "About Part 1", "CTA Section", "Contact", "Header", "Mobile Menu"],
+            "tracking": "All CTAs tracked via GTM dataLayer"
+          },
+          "scroll_interactions": {
+            "header": "Scroll detection for style changes",
+            "scroll_highlight_text": "Word-by-word reveal based on scroll progress",
+            "behavior": "smooth scroll on anchor clicks"
+          }
+        },
+        "analytics_tracking": {
+          "cta_clicks": {
+            "event": "cta_click",
+            "params": {
+              "cta_type": "whatsapp",
+              "cta_label": "Custom label",
+              "section": "Where clicked",
+              "href": "Target URL"
+            }
+          },
+          "portfolio_opens": {
+            "event": "portfolio_open",
+            "params": {
+              "item_title": "Project title"
+            }
+          }
+        }
+      },
+      "data_layer": {
+        "content_source": "Sanity (siteSettings + landingPage)",
+        "fetching": {
+          "mode": "server components fetch on request",
+          "cache": "Next.js fetch caching",
+          "revalidate_seconds": 3600
+        },
+        "queries": [
+          "getSiteSettings",
+          "getLandingPage",
+          "getServices",
+          "getPortfolioItems"
+        ],
+        "fallback_policy": {
+          "dev": "Allow fallback seeded content if CMS empty",
+          "prod": "Require published siteSettings + landingPage; show safe minimal UI if missing"
+        }
+      },
+      "cms": {
+        "schemas": {
+          "documents": [
+            {
+              "name": "siteSettings",
+              "singleton": true,
+              "fields": [
+                "siteName",
+                "logo",
+                "contacts: { whatsapp, email }",
+                "serviceArea: { city, state }",
+                "legal: { professionalTitle, creaNumber, creaUF, cnpj, legalName }",
+                "primaryCTA: cta",
+                "seoDefaults: { titleTemplate, defaultDescription, ogImage }"
+              ],
+              "seed_values": {
+                "siteName": "RM Projetos & Construção",
+                "contacts.whatsapp": "+55 85 99988-0988",
+                "contacts.email": "dr.robertofm@gmail.com",
+                "serviceArea.city": "Fortaleza",
+                "serviceArea.state": "CE",
+                "legal.professionalTitle": "Engenheiro Civil",
+                "legal.creaUF": "CE",
+                "legal.creaNumber": "123456",
+                "legal.cnpj": "1234567890001-12"
+              }
+            },
+            {
+              "name": "landingPage",
+              "singleton": true,
+              "fields": [
+                "hero: { headline, subheadline, image, primaryCTAOverride? }",
+                "about: { title, body[], founderName, founderRole, portrait, trustItems[] }",
+                "services: [reference(service)]",
+                "portfolio: [reference(portfolioItem)]",
+                "ctaBlocks: [ctaBlock]"
+              ]
+            },
+            { "name": "service", "fields": ["title", "description", "icon", "order"] },
+            {
+              "name": "portfolioItem",
+              "fields": ["title", "summary", "type", "location", "year", "images[]", "highlights[]"]
+            }
+          ],
+          "objects": [
+            { "name": "cta", "fields": ["label", "type", "href", "eventName"] },
+            { "name": "ctaBlock", "fields": ["headline", "supportingText", "cta", "secondaryCta?"] }
+          ]
+        }
+      },
+      "forms_and_backend": {
+        "decision": "WhatsApp-only CTA. No contact form submission backend in MVP.",
+        "implementation": {
+          "wa_link": "https://wa.me/5585999880988",
+          "message_prefill": "optional (later): ?text=Ol%C3%A1%2C%20gostaria%20de%20um%20or%C3%A7amento.",
+          "track": "cta_click event on every WhatsApp button/link"
+        }
+      },
+      "analytics": {
+        "implementation": {
+          "approach": "GTM dataLayer wrapper",
+          "files": ["src/lib/analytics/track.ts", "src/lib/analytics/events.ts"],
+          "behavior": [
+            "If NEXT_PUBLIC_GTM_ID missing, track() is noop",
+            "Header + Hero + PrimaryCTA + Contact WhatsApp all trigger cta_click"
+          ]
+        },
+        "events": [
+          { "name": "cta_click", "params": ["cta_type", "cta_label", "section", "href"] },
+          { "name": "portfolio_open", "params": ["item_title"] },
+          { "name": "scroll_depth", "params": ["percent"] }
+        ]
+      },
+      "seo": {
+        "metadata": {
+          "title": "Engenheiro Civil em Fortaleza/CE | RM Projetos & Construção",
+          "meta_description": "Engenharia, reformas e projetos com mais de 30 anos de experiência. Atendimento técnico responsável em Fortaleza/CE. Fale no WhatsApp.",
+          "og": "Use og.png placeholder; replace later with branded OG"
+        },
+        "implementation": [
+          "Use Next.js Metadata API with CMS overrides (siteSettings/landingPage).",
+          "One H1 only (hero).",
+          "sitemap.ts includes / and /politica-de-privacidade.",
+          "robots.ts enabled."
+        ],
+        "structured_data": {
+          "types": ["ProfessionalService", "Person"],
+          "jsonld_fields": [
+            "name (RM Projetos & Construção)",
+            "areaServed (Fortaleza, CE)",
+            "email",
+            "telephone (WhatsApp)",
+            "founder/person (Roberto Martins)",
+            "crea identifier (as additionalProperty)"
+          ]
+        }
+      },
+      "performance": {
+        "targets": {
+          "lighthouse_performance": ">= 90",
+          "lighthouse_accessibility": ">= 95",
+          "lighthouse_seo": ">= 90"
+        },
+        "practices": [
+          "next/font Inter",
+          "next/image everywhere",
+          "Lazy-load portfolio images",
+          "Avoid heavy client JS; use client components only for mobile menu (Sheet) + scroll tracking"
+        ]
+      },
+      "accessibility": {
+        "requirements": [
+          "Skip link",
+          "Keyboard navigable nav + sheet menu",
+          "Focus-visible styles (shadcn defaults)",
+          "Proper labels and alt text (placeholders included)"
+        ],
+        "checks": ["Keyboard pass", "Lighthouse A11y"]
+      },
+      "env_vars": {
+        "apps/web": [
+          "NEXT_PUBLIC_SITE_URL",
+          "NEXT_PUBLIC_GTM_ID (optional)",
+          "SANITY_PROJECT_ID",
+          "SANITY_DATASET",
+          "SANITY_API_VERSION"
+        ],
+        "apps/studio": ["SANITY_STUDIO_PROJECT_ID", "SANITY_STUDIO_DATASET", "SANITY_STUDIO_API_VERSION"]
+      },
+      "deployment_vercel": {
+        "steps": [
+          "Create Git repo and push monorepo.",
+          "Create Vercel project for apps/web (Root Directory = apps/web).",
+          "Set env vars (Preview + Production).",
+          "Connect domain + set NEXT_PUBLIC_SITE_URL.",
+          "Deploy preview and run QA checklist.",
+          "Publish CMS content in production dataset and deploy production."
+        ]
+      },
+      "qa_and_launch": {
+        "functional_checklist": [
+          "Anchors (#sobre #servicos #projetos #contato) scroll correctly",
+          "WhatsApp CTAs all open correct wa.me link",
+          "Header sticky works (scrolled style)",
+          "Portfolio grid renders 6+ placeholders and keeps aspect ratio 4:3"
+        ],
+        "seo_checklist": [
+          "Title includes Fortaleza/CE",
+          "Meta description present",
+          "JSON-LD validates",
+          "sitemap and robots available"
+        ],
+        "performance_checklist": [
+          "Hero image not oversized; LCP ok",
+          "No CLS on load",
+          "Minimal third-party scripts"
+        ],
+        "a11y_checklist": [
+          "One H1",
+          "Tab order sensible",
+          "Visible focus",
+          "Nav is a landmark and sheet is accessible"
+        ],
+        "launch_steps": [
+          "Final content publish in Sanity production dataset",
+          "Final Lighthouse run on production URL",
+          "Verify GTM events in preview mode (if enabled)",
+          "Monitor Vercel logs after launch"
+        ]
+      }
+    }
+  }
+}
