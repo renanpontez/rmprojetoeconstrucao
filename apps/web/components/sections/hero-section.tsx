@@ -27,7 +27,10 @@ export function HeroSection() {
                 Engenharia Civil em Fortaleza com mais de 30 anos de experiência
               </h1>
               <p className="text-lg text-white/90 sm:text-lg lg:text-lg">
-                Projetos estruturais, reformas e construções residenciais e comerciais.
+                Projetando, construindo e reformando empreendimentos residenciais
+                e comerciais, com requinte nos acabamentos, inovação tecnológica,
+                excelência no atendimento e rigor na execução das obras ajudando
+                a realizar projetos de vida, visando a satisfação plena do cliente.
                 Atendimento personalizado com engenheiro civil CREA-CE ativo.
               </p>
             </div>
@@ -44,7 +47,7 @@ export function HeroSection() {
             <div className="flex flex-wrap gap-6 pt-4 text-sm text-white/80">
               <div className="flex items-center gap-2">
                 <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                <span>Eng. Civil CREA-CE: 123456</span>
+                <span>Eng. Civil CREA-CE: <strong>7880/D</strong> - RNP: 060196010-6</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="h-1.5 w-1.5 rounded-full bg-primary" />

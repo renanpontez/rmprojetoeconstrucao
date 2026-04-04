@@ -55,7 +55,7 @@ export function AboutSection() {
             </div>
 
             <ScrollHighlightText className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-              Transformamos projetos em realidade com engenharia de qualidade, segurança estrutural e compromisso com prazos em Fortaleza.
+              Transformamos sonhos em realidade, através de projetos arrojados de engenharia, executados com qualidade, segurança e compromisso com os prazos.
             </ScrollHighlightText>
 
             <div className="pt-6">

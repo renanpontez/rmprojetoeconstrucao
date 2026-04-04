@@ -63,9 +63,9 @@ export function Header() {
                     "/assets/img/rm-logo-white.svg"
                 }
                 alt="RM Projetos & Construção"
-                width={120}
-                height={40}
-                className="h-8 w-auto transition-all"
+                width={160}
+                height={53}
+                className="h-12 w-auto transition-all"
                 priority
               />
             </Link>
