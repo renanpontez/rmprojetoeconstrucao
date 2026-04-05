@@ -43,13 +43,7 @@ export function ServicesSection() {
               </p>
             </div>
 
-            <ul>
-              <li>test</li>
-              <li>test 2</li>
-              <li>test 3</li>
-            </ul>
-
-            <Button variant="outline" size="lg" className="w-fit">
+<Button variant="outline" size="lg" className="w-fit">
               Ver Todos os Serviços
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

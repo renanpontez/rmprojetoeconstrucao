@@ -3,7 +3,7 @@ import { Container } from '@/components/ui/container'
 import { ScrollHighlightText } from '@/components/ui/scroll-highlight-text'
 
 const stats = [
-  { value: '+500', label: 'Projetos Concluídos' },
+  { value: '100+', label: 'Projetos Concluídos' },
   { value: '+30', label: 'Anos de Experiência' },
   { value: '100%', label: 'Obras com ART' },
 ]
@@ -84,8 +84,8 @@ export function AboutSection() {
           {/* Engineer Image */}
           <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg">
             <Image
-              src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&h=675&fit=crop&q=80"
-              alt="Engineers working on renewable energy project"
+              src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=675&fit=crop&q=80"
+              alt="Engenheiros em canteiro de obras de engenharia civil"
               fill
               className="object-cover"
             />
