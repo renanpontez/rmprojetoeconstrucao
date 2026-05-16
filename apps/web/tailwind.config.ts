@@ -59,6 +59,17 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
+        serif: ['var(--font-fraunces)', 'serif'],
+      },
+      keyframes: {
+        scrollLine: {
+          '0%': { transform: 'translateY(-100%)' },
+          '50%': { transform: 'translateY(150%)' },
+          '100%': { transform: 'translateY(-100%)' },
+        },
+      },
+      animation: {
+        scrollLine: 'scrollLine 2.2s ease-in-out infinite',
       },
     },
   },

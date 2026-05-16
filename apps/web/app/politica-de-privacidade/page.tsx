@@ -5,8 +5,8 @@ import { Header } from '@/components/shared/header'
 import { Footer } from '@/components/shared/footer'
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidade | RM Projetos & Construção',
-  description: 'Política de privacidade da RM Projetos & Construção',
+  title: 'Política de Privacidade | RM Projeto & Construção',
+  description: 'Política de privacidade da RM Projeto & Construção',
 }
 
 export default function PrivacyPolicyPage() {
@@ -26,7 +26,7 @@ export default function PrivacyPolicyPage() {
               <section className="mt-8">
                 <h2 className="text-2xl font-bold mb-4">1. Informações Gerais</h2>
                 <p>
-                  A RM Projetos & Construção respeita a sua privacidade. Este documento descreve
+                  A RM Projeto & Construção respeita a sua privacidade. Este documento descreve
                   como coletamos, usamos e protegemos suas informações pessoais.
                 </p>
               </section>

@@ -16,7 +16,7 @@ export function Footer() {
             <div className="mb-4">
               <Image
                 src="/assets/img/rm-logo-white.svg"
-                alt="RM Projetos & Construção"
+                alt="RM Projeto & Construção"
                 width={150}
                 height={50}
                 className="h-10 w-auto brightness-0 invert"
@@ -76,7 +76,7 @@ export function Footer() {
 
         <div className="text-center text-sm text-muted/70">
           <p>
-            © {currentYear} RM Projetos & Construção. Todos os direitos reservados.
+            © {currentYear} RM Projeto & Construção. Todos os direitos reservados.
           </p>
           <p className="mt-2">
             Engenheiro Civil Roberto Martins - CREA-CE: 123456

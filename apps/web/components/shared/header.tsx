@@ -49,7 +49,13 @@ export function Header() {
       )}
     >
       <Container>
-        <nav className="flex h-20 items-center justify-between" aria-label="Global">
+        <nav
+          className={cn(
+            'flex items-center justify-between transition-all duration-300',
+            isScrolled ? 'h-20' : 'h-32'
+          )}
+          aria-label="Global"
+        >
           {/* Logo */}
           <div className="flex lg:flex-1">
             <Link
@@ -62,10 +68,13 @@ export function Header() {
                     "/assets/img/rm-logo.svg" :
                     "/assets/img/rm-logo-white.svg"
                 }
-                alt="RM Projetos & Construção"
-                width={160}
-                height={53}
-                className="h-12 w-auto transition-all"
+                alt="RM Projeto & Construção"
+                width={240}
+                height={80}
+                className={cn(
+                  'w-auto transition-all duration-300',
+                  isScrolled ? 'h-12' : 'h-20'
+                )}
                 priority
               />
             </Link>
