@@ -1,13 +1,12 @@
-import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react'
+import { Mail, Phone, MapPin, MessageCircle, Clock } from 'lucide-react'
 import { Container } from '@/components/ui/container'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { CTAButton } from '@/components/ui/cta-button'
-import { Card, CardContent } from '@/components/ui/card'
 
 const contactMethods = [
   {
     icon: Phone,
-    title: 'Telefone/WhatsApp',
+    title: 'Telefone & WhatsApp',
     detail: '+55 85 99988-0988',
     href: 'https://wa.me/5585999880988',
   },
@@ -19,87 +18,140 @@ const contactMethods = [
   },
   {
     icon: MapPin,
-    title: 'Localização',
-    detail: 'Fortaleza/CE',
+    title: 'Atendimento',
+    detail: 'Fortaleza/CE & Região Metropolitana',
+    href: null,
+  },
+  {
+    icon: Clock,
+    title: 'Horário',
+    detail: 'Seg. a Sex. · 8h às 18h',
     href: null,
   },
 ]
 
 export function ContactSection() {
   return (
-    <section id="contato" className="scroll-mt-16 py-20">
+    <section id="contato" className="scroll-mt-16 bg-background py-24 sm:py-32">
       <Container>
         <SectionHeading
-          title="Entre em Contato"
-          subtitle="Estamos prontos para atender seu projeto"
+          align="left"
+          index="04"
+          eyebrow="Contato"
+          title={
+            <>
+              Vamos conversar sobre o seu{' '}
+              <span className="font-serif font-light italic text-foreground/85">
+                próximo projeto
+              </span>
+              .
+            </>
+          }
+          subtitle="Atendimento direto com engenheiro civil — respondemos rapidamente em qualquer um dos canais abaixo."
         />
 
-        <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
-          {/* Contact Methods */}
-          <div className="space-y-6">
-            <div>
-              <h3 className="mb-4 text-xl font-bold">Fale Conosco</h3>
-              <p className="text-muted-foreground">
-                Entre em contato através de um dos canais abaixo. Respondemos rapidamente para
-                tirar suas dúvidas e iniciar seu projeto.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              {contactMethods.map((method, index) => {
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Contact methods */}
+          <div className="lg:col-span-7">
+            <div className="grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-border bg-border sm:grid-cols-2">
+              {contactMethods.map((method) => {
                 const Icon = method.icon
+                const Wrapper = method.href ? 'a' : 'div'
                 return (
-                  <Card key={index}>
-                    <CardContent className="flex items-center gap-4 p-4">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium text-muted-foreground">
-                          {method.title}
-                        </p>
-                        {method.href ? (
-                          <a
-                            href={method.href}
-                            target={method.href.startsWith('http') ? '_blank' : undefined}
-                            rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                            className="font-semibold hover:text-primary"
-                          >
-                            {method.detail}
-                          </a>
-                        ) : (
-                          <p className="font-semibold">{method.detail}</p>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <Wrapper
+                    key={method.title}
+                    {...(method.href
+                      ? {
+                          href: method.href,
+                          target: method.href.startsWith('http')
+                            ? '_blank'
+                            : undefined,
+                          rel: method.href.startsWith('http')
+                            ? 'noopener noreferrer'
+                            : undefined,
+                        }
+                      : {})}
+                    className="group block bg-background p-6 transition-colors hover:bg-muted/40 sm:p-8"
+                  >
+                    <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-sm bg-primary/10 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div className="text-[10px] font-medium uppercase tracking-[0.28em] text-muted-foreground">
+                      {method.title}
+                    </div>
+                    <div className="mt-2 font-sans text-base font-medium text-foreground transition-colors group-hover:text-primary">
+                      {method.detail}
+                    </div>
+                  </Wrapper>
                 )
               })}
             </div>
+
+            <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 border-t border-border pt-6 text-xs sm:grid-cols-3">
+              <div>
+                <dt className="text-muted-foreground">CREA-CE</dt>
+                <dd className="mt-1 font-medium tracking-wide text-foreground">
+                  7880/D
+                </dd>
+              </div>
+              <div>
+                <dt className="text-muted-foreground">RNP</dt>
+                <dd className="mt-1 font-medium tracking-wide text-foreground">
+                  060196010-6
+                </dd>
+              </div>
+              <div>
+                <dt className="text-muted-foreground">Responsável</dt>
+                <dd className="mt-1 font-medium tracking-wide text-foreground">
+                  Eng. Roberto Martins
+                </dd>
+              </div>
+            </dl>
           </div>
 
-          {/* CTA Card */}
-          <Card className="flex flex-col justify-center bg-gradient-to-br from-primary/5 to-primary/10">
-            <CardContent className="p-8 text-center">
-              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                <MessageCircle className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="mb-2 text-2xl font-bold">Atendimento via WhatsApp</h3>
-              <p className="mb-6 text-muted-foreground">
-                A forma mais rápida de falar conosco. Clique no botão abaixo e inicie uma
-                conversa agora mesmo.
-              </p>
-              <CTAButton
-                label="Abrir WhatsApp"
-                size="lg"
-                className="w-full sm:w-auto"
-                trackingData={{ section: 'contact', label: 'Abrir WhatsApp' }}
+          {/* WhatsApp CTA card */}
+          <div className="lg:col-span-5">
+            <div className="relative h-full overflow-hidden rounded-sm border border-border bg-neutral-950 p-8 text-white sm:p-10">
+              <div
+                aria-hidden
+                className="absolute inset-0 opacity-[0.06]"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)',
+                  backgroundSize: '48px 48px',
+                }}
               />
-              <p className="mt-4 text-xs text-muted-foreground">
-                Respondemos de segunda a sexta, das 8h às 18h
-              </p>
-            </CardContent>
-          </Card>
+              <span aria-hidden className="absolute right-0 top-0 h-px w-12 bg-primary" />
+              <span aria-hidden className="absolute right-0 top-0 h-12 w-px bg-primary" />
+
+              <div className="relative flex h-full flex-col">
+                <div className="mb-8 flex h-12 w-12 items-center justify-center rounded-full bg-primary/15 text-primary">
+                  <MessageCircle className="h-6 w-6" />
+                </div>
+
+                <div className="mb-3 text-[10px] font-medium uppercase tracking-[0.28em] text-white/55">
+                  Resposta em minutos
+                </div>
+                <h3 className="font-sans text-2xl font-semibold leading-[1.15] tracking-tight text-white sm:text-3xl">
+                  Atendimento direto via{' '}
+                  <span className="font-serif font-light italic">WhatsApp</span>
+                </h3>
+                <p className="mt-4 text-sm leading-relaxed text-white/70">
+                  Clique no botão e fale agora com o engenheiro civil responsável.
+                  Sem intermediários.
+                </p>
+
+                <div className="mt-8">
+                  <CTAButton
+                    label="Abrir WhatsApp"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                    trackingData={{ section: 'contact', label: 'Abrir WhatsApp' }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </Container>
     </section>
