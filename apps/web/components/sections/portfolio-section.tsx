@@ -79,7 +79,7 @@ export function PortfolioSection() {
     setSelectedProject(project)
 
     if (typeof window !== 'undefined') {
-      window.dataLayer = window.dataLayer || []
+      window.dataLayer ??= []
       window.dataLayer.push({
         event: 'portfolio_open',
         item_title: project.title,

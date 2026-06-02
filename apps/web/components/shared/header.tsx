@@ -5,7 +5,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 import { Container } from '@/components/ui/container'
-import { CTAButton } from '@/components/ui/cta-button'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
