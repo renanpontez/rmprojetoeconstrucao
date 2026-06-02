@@ -23,7 +23,7 @@ export function CTAButton({
   const handleClick = () => {
     // Track analytics event
     if (typeof window !== 'undefined' && trackingData) {
-      window.dataLayer = window.dataLayer || []
+      window.dataLayer ??= []
       window.dataLayer.push({
         event: 'cta_click',
         cta_type: 'whatsapp',
