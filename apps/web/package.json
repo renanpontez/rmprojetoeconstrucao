@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "seed": "tsx scripts/migrate-to-sanity.ts",
+    "seed:dry": "tsx scripts/migrate-to-sanity.ts --dry-run",
+    "seed:force": "tsx scripts/migrate-to-sanity.ts --force",
+    "inspect:sanity": "tsx scripts/inspect-sanity.ts"
   },
   "dependencies": {
     "next": "^16.2.6",
@@ -22,7 +26,14 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "next-sanity": "^13.0.0",
+    "@sanity/client": "^7.0.0",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^5.0.0",
+    "@portabletext/react": "^3.2.0",
+    "sanity": "^5.0.0",
+    "styled-components": "^6.1.0"
   },
   "devDependencies": {
     "@types/node": "^22",
@@ -33,6 +44,8 @@
     "postcss": "^8.5.10",
     "autoprefixer": "^10",
     "eslint": "^9",
-    "eslint-config-next": "^16.2.6"
+    "eslint-config-next": "^16.2.6",
+    "dotenv": "^16.4.7",
+    "tsx": "^4.19.2"
   }
 }
