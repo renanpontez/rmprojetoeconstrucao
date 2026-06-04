@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#
+# Run before every `git push`. Aborts if typecheck or the full Next.js build
+# fail. Catches the things `tsc --noEmit` alone cannot: build-time SSG errors,
+# Next 16 cache-life signature changes, missing client/server boundaries.
+#
+# Skip with: git push --no-verify  (don't make this a habit)
+#
+set -e
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+# Allow skipping the heavy build for hotfix/no-code branches via env var.
+if [ "${SKIP_PREPUSH_BUILD:-0}" = "1" ]; then
+  echo "→ [pre-push] SKIP_PREPUSH_BUILD=1 set — skipping build"
+  exit 0
+fi
+
+echo "→ [pre-push] TypeScript check (apps/web + apps/studio)"
+npm run typecheck
+
+echo "→ [pre-push] Next.js build (apps/web — same command Vercel runs)"
+npm run build
+
+echo "✓ [pre-push] passed"

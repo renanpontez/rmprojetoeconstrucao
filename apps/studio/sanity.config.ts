@@ -1,8 +1,12 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
-import { schemaTypes } from './schemaTypes'
-import { deskStructure } from './structure'
+
+// Schemas + sidebar structure are owned by apps/web so both the embedded
+// Next.js Studio (/studio) and this standalone one stay in sync from a single
+// source of truth.
+import { schemaTypes } from '../web/sanity/studio/schemas'
+import { deskStructure } from '../web/sanity/studio/structure'
 
 const projectId =
   process.env.SANITY_STUDIO_PROJECT_ID ||

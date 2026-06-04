@@ -20,8 +20,11 @@
     "seed:dry": "npm run seed:dry --workspace=web",
     "seed:force": "npm run seed:force --workspace=web",
     "inspect:sanity": "npm run inspect:sanity --workspace=web",
-    "studio:deploy": "npm run deploy --workspace=studio"
+    "studio:deploy": "npm run deploy --workspace=studio",
+    "postinstall": "git config core.hooksPath .githooks 2>/dev/null || true",
+    "prepush": "npm run typecheck && npm run build"
   },
+  "packageManager": "npm@10.0.0",
   "devDependencies": {
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.11"
