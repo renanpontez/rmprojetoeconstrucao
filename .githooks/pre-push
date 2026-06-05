@@ -17,6 +17,23 @@ if [ "${SKIP_PREPUSH_BUILD:-0}" = "1" ]; then
   exit 0
 fi
 
+# Short-circuit on delete-only pushes (e.g. `git push origin --delete branch`).
+# Git pipes one `<local-ref> <local-sha> <remote-ref> <remote-sha>` line per
+# ref being pushed; for deletes, local-sha is all zeros.
+ZERO_SHA="0000000000000000000000000000000000000000"
+SAW_REF=0
+ALL_DELETES=1
+while read -r local_ref local_sha remote_ref remote_sha; do
+  SAW_REF=1
+  if [ "$local_sha" != "$ZERO_SHA" ]; then
+    ALL_DELETES=0
+  fi
+done
+if [ "$SAW_REF" = "1" ] && [ "$ALL_DELETES" = "1" ]; then
+  echo "→ [pre-push] delete-only push — skipping build"
+  exit 0
+fi
+
 echo "→ [pre-push] TypeScript check (apps/web + apps/studio)"
 npm run typecheck
 

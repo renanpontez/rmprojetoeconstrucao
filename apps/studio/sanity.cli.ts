@@ -11,7 +11,7 @@ const dataset =
 
 export default defineCliConfig({
   api: { projectId, dataset },
-  // TODO: after the first `sanity deploy`, paste the printed appId here so subsequent
-  // deploys don't re-prompt (playbook §16).
-  // deployment: { appId: 'xxxxxxxxxxxxxxxx' },
+  // Pinned so `sanity deploy` doesn't re-prompt (playbook §16).
+  // Standalone Studio is at https://rmprojetoeconstrucao.sanity.studio/
+  deployment: { appId: 'tg217sijstrpy6kipw30vfrf' },
 })
